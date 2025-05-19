@@ -1,0 +1,24 @@
+{
+  "name": "Graphql API",
+  "api_id": "api",
+  "org_id": "default",
+  "definition": {
+    "location": "header",
+    "key": "version"
+  },
+  "use_keyless": true,
+  "version_data": {
+    "not_versioned": true,
+    "versions": {
+      "Default": {
+        "name": "Default"
+      }
+    }
+  },
+  "driver": "peter",
+  "proxy": {
+    "listen_path": "/api/",
+    "target_url": "http://api-service:4000",
+    "strip_listen_path": true
+  }
+}

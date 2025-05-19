@@ -1,0 +1,27 @@
+services:
+  api-service:
+    build: ./backend
+    ports:
+      - 4000:4000
+    networks:
+      - tyk
+  tyk-gateway:
+    image: docker.tyk.io/tyk-gateway/tyk-gateway:v5.5.0
+    ports:
+      - 8080:8080
+    networks:
+      - tyk
+    volumes:
+      - ./tyk.standalone.conf:/opt/tyk-gateway/tyk.conf
+      - ./tyk-api-config.json:/opt/tyk-gateway/apps/tyk-api-config.json
+    environment:
+      - TYK_GW_SECRET=foo
+    depends_on:
+      - tyk-redis
+      - api-service
+  tyk-redis:
+    image: redis:6.2.7-alpine
+    networks:
+      - tyk
+networks:
+  tyk:
